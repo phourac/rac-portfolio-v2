@@ -1,18 +1,27 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   css: ['~/assets/css/main.css'],
   devtools: { enabled: true },
+  modules: [
+    // '@nuxt/ui',
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image',
+    '@vueuse/motion/nuxt',
+    '@hypernym/nuxt-gsap'
+  ],
+  gsap: {
+    composables: true,
+    provide: false,
+    extraPlugins: {
+      scrollTrigger: true
+    }
+  },
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {}
     }
   },
-  modules: [
-    // '@nuxt/ui'
-    '@nuxtjs/tailwindcss',
-    '@nuxt/image',
-    '@vueuse/motion/nuxt'
-  ]
+
+  compatibilityDate: '2025-01-13'
 })

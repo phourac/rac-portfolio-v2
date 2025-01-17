@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { ref, watchEffect, onMounted, onBeforeUnmount } from 'vue'
-
+import { Icon } from '@iconify/vue'
+import { useScrollPosition } from '@/composables/useScrollPosition'
+import Hamburger from '@/components/Hamburger.vue'
 const isMobileMenuOpen = ref(false)
+const isHover = ref(-1)
+const { scrollY } = useScrollPosition()
 
+watchEffect(() => {
+  console.log('scrollY:', scrollY.value)
+})
 const toggleMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
@@ -11,20 +18,21 @@ const closeMenu = () => {
   isMobileMenuOpen.value = false
 }
 
+const hoverMenu = (index: number) => {
+  isHover.value = index
+}
+
 // Disable body scroll when the modal is open
 onMounted(() => {
   watchEffect(() => {
     if (isMobileMenuOpen.value) {
-      // Disable scrolling by adding a style directly to the body
       document.body.style.overflow = 'hidden'
     } else {
-      // Re-enable scrolling when the modal is closed
       document.body.style.overflow = ''
     }
   })
 })
 
-// Clean up overflow style on component unmount
 onBeforeUnmount(() => {
   document.body.style.overflow = ''
 })
@@ -32,109 +40,107 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    class="bg-paper flex justify-between items-center px-16 py-4 sticky top-0 z-10 overflow-auto"
+    :class="[
+      scrollY > 20 ? 'bg-black py-2' : 'bg-transparent py-4 ',
+      'sticky flex justify-between items-center md:px-28 px-8 top-0 z-10 overflow-auto transition-bg'
+    ]"
   >
-    <NuxtImg src="/images/logo.png" sizes="50" />
+    <NuxtImg
+      v-motion
+      :initial="{ opacity: 0, x: -50 }"
+      :enter="{ opacity: 1, x: 0, transition: { delay: 400 } }"
+      src="/images/white_logo.png"
+      sizes="64"
+    />
 
     <nav class="relative">
-      <!-- Mobile Toggle Button -->
-      <button
-        @click="toggleMenu"
-        class="md:hidden p-2 text-black focus:outline-none"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          ></path>
-        </svg>
-      </button>
-
-      <!-- Full-Screen Mobile Menu Dialog with Transition -->
-      <transition name="modal-fade">
-        <div
-          v-if="isMobileMenuOpen"
-          class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-20"
-          @click="closeMenu"
-        >
-          <div
-            class="bg-white p-6 rounded-none w-full h-full flex flex-col justify-center items-center text-center"
-            @click.stop
-          >
-            <h3 class="text-2xl font-semibold mb-6">Mobile Menu</h3>
-            <ul class="space-y-6">
-              <li
-                v-for="(item, index) in navigation"
-                :key="index"
-                class="cursor-pointer"
-                @click="closeMenu"
-              >
-                <NuxtLink :to="item.link">
-                  <p class="text-black">{{ item.value }}</p>
-                </NuxtLink>
-              </li>
-            </ul>
-            <button
-              class="mt-6 p-2 bg-red-500 text-white rounded-md"
-              @click="closeMenu"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </transition>
-
-      <!-- Desktop Navigation Links -->
       <ul class="hidden md:flex gap-8">
         <li
           v-for="(item, index) in navigation"
           :key="index"
+          v-motion
+          :initial="{
+            opacity: 0,
+            y: -20
+          }"
+          :enter="{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 600 + index * 100 }
+          }"
           class="cursor-pointer"
+          @mouseenter="hoverMenu(index)"
+          @mouseleave="isHover = -1"
         >
           <NuxtLink :to="item.link">
-            <p class="text-black relative">{{ item.value }}</p>
+            <p
+              v-motion
+              :initial="{
+                // opacity: 1,
+                color: '#FAFAFA'
+              }"
+              :hovered="{
+                color: '#FAFA'
+                // scale: 1.1,
+                // transition: {
+                //   type: 'spring',
+                //   stiffness: 500,
+                //   damping: 15
+                // }
+              }"
+              class="nav-item text-[#FAFAFA]"
+            >
+              {{ item.value }}
+            </p>
           </NuxtLink>
         </li>
       </ul>
+    </nav>
+
+    <nav class="flex flex-row items-center gap-8">
+      <div class="md:flex flex-row items-center gap-8 hidden">
+        <Icon
+          v-for="(icon, index) in [
+            'formkit:facebook',
+            'formkit:github',
+            'formkit:linkedin'
+          ]"
+          :key="icon"
+          v-motion
+          :initial="{ opacity: 0, scale: 0 }"
+          :enter="{
+            opacity: 1,
+            scale: 1,
+            transition: { delay: 800 + index * 100 }
+          }"
+          :hover="{
+            scale: 1.2,
+            transition: { type: 'spring', stiffness: 500 }
+          }"
+          :icon="icon"
+          height="28"
+          width="28"
+        />
+      </div>
+      <Hamburger />
     </nav>
   </div>
 </template>
 
 <style scoped>
-p {
-  position: relative;
-}
-
-p::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #000;
-  transition: width 0.3s ease;
-}
-
-p:hover::after {
-  width: 100%;
-}
-
-/* Modal Fade Transition */
 .modal-fade-enter-active,
 .modal-fade-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.modal-fade-enter, .modal-fade-leave-to /* .modal-fade-leave-active in <2.1.8 */ {
+.modal-fade-enter-from,
+.modal-fade-leave-to {
   opacity: 0;
+}
+
+.transition-bg {
+  transition:
+    background-color 0.3s ease-in-out,
+    padding-block 0.3s ease-in-out;
 }
 </style>

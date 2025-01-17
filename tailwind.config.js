@@ -9,10 +9,12 @@ export default {
     extend: {
       colors: {
         primary: primary,
-        paper: '#F5F5F5' // Light, subtle background resembling paper
+        paper: '#C4F000',
+        secondary: '#180e77'
       },
       textColor: {
-        primary: colorsText
+        primary: colorsText,
+        secondary: '#B4B4B4'
       },
       fontSize: {
         sm: ['12px', '18px'], // Small text with 18px line-height
@@ -24,5 +26,5 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [require('daisyui')]
 }
