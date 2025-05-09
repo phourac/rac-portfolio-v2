@@ -1,16 +1,12 @@
 <template>
-  <main>
-    <section v-lazy>
-      <client-only>
-        <ContractIntro />
-      </client-only>
-    </section>
-    <section v-lazy>
-      <client-only>
-        <FormContact />
-      </client-only>
-    </section>
-  </main>
+  <div>
+    <client-only>
+      <ContractIntro />
+    </client-only>
+    <client-only>
+      <FormContact />
+    </client-only>
+  </div>
 </template>
 
 <script lang="ts" setup>
