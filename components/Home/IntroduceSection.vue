@@ -1,7 +1,7 @@
 <template>
   <section aria-labelledby="intro">
     <div
-      class="h-[700px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 md:pt-16 pt:2 md:container mx-auto px-4 py-8"
+      class="lg:h-[700px] h-[1100px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-1 md:pt-16 pt:2 md:container mx-auto px-4 py-8"
     >
       <!-- Image Section -->
       <div
