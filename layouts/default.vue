@@ -41,7 +41,6 @@ definePageMeta({
     }
   ]
 })
-
 const scrollContainerRef = ref(null)
 let locomotiveScroll = null
 let resizeObserver = null
