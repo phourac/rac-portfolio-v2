@@ -1,66 +1,68 @@
 <template>
-  <div
-    class="min-h-screen flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 md:pt-16 pt:2"
-  >
-    <!-- Image Section with Glitch Effect -->
+  <section aria-labelledby="intro">
     <div
-      class="relative overflow-hidden max-w-[800px] lg:max-w-[450px] w-full h-auto rounded-3xl"
+      class="h-[700px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 md:pt-16 pt:2 md:container mx-auto px-4 py-8"
     >
-      <NuxtImg
-        src="/images/me.png"
-        class="object-cover w-full h-auto glitch-image"
-        alt="Banner"
-      />
-      <div class="glitch-overlay"></div>
-    </div>
-
-    <!-- Text Section -->
-    <div class="flex flex-col gap-4">
-      <h1
-        class="text-[32px] md:text-[48px] lg:text-[56px] leading-tight text-primary font-bold"
+      <!-- Image Section -->
+      <div
+        class="relative overflow-hidden w-full lg:w-1/2 max-w-[800px] lg:max-w-[450px] min-h-[300px] sm:min-h-[400px] md:min-h-[400px] rounded-3xl"
       >
-        <span>Hi, I'm Phourac.</span> <br />
-        <span class="text-gray-300">I am a front-end developer </span><br />
-        <span class="text-gray-400">specializing in interfaces</span> <br />
-        <span class="text-gray-500">and web applications.</span>
-      </h1>
+        <NuxtImg
+          src="/images/me.png"
+          class="object-cover w-full h-full glitch-image"
+          alt="A picture of Phourac, a front-end developer"
+          loading="lazy"
+        />
+        <div class="glitch-overlay"></div>
+      </div>
 
-      <p class="text-secondary text-lg w-fit">
-        With 2 years of experience, I'm passionate about creating efficient,
-        responsive, and user-friendly interfaces.
-      </p>
-
-      <div>
-        <button
-          v-motion
-          :initial="{
-            backgroundColor: '#c4f000',
-            color: '#000000'
-          }"
-          :hovered="{
-            backgroundColor: '#000000',
-            border: '1px solid #c4f000',
-            color: '#FAFAFA'
-          }"
-          class="rounded-3xl px-8 py-3 inline-flex items-center gap-2 transition-all duration-300 font-semibold"
+      <!-- Text Section -->
+      <div class="flex flex-col gap-4 w-full lg:w-1/2">
+        <h1
+          id="intro"
+          class="text-[32px] md:text-[48px] lg:text-[56px] leading-tight text-primary font-bold"
         >
-          Download CV
-          <Icon
-            :icon="'material-symbols:download-rounded'"
-            width="28"
-            height="28"
-          />
-        </button>
+          Hi, I'm Phourac.
+          <span class="text-gray-300">I am a front-end developer</span>
+          <span class="text-gray-400">specializing in interfaces</span>
+          <span class="text-gray-500">and web applications.</span>
+        </h1>
+
+        <p class="text-secondary text-lg w-fit">
+          With 2 years of experience, I'm passionate about creating efficient,
+          responsive, and user-friendly interfaces.
+        </p>
+
+        <div>
+          <button class="cv-button">
+            Download CV
+            <Icon
+              :icon="'material-symbols:download-rounded'"
+              width="28"
+              height="28"
+            />
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-
-  <Project />
+  </section>
 </template>
 
 <script setup lang="ts">
-import Project from '@/components/Home/Project.vue'
+import { ref, watch } from 'vue'
+import { useScroll } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
+
+const target = ref<HTMLElement>()
+const { y } = useScroll(window)
+
+const { transform } = useElementTransform(target, (initData) => {
+  initData.translateX = '0px' // Initial position
+})
+
+watch(y, (scrollY) => {
+  transform.translateX = `${scrollY * 1.5}px`
+})
 </script>
 
 <style scoped>
@@ -83,7 +85,7 @@ import { Icon } from '@iconify/vue'
   pointer-events: none;
 }
 
-/* The glitch effect animation */
+/* Glitch effect */
 @keyframes glitch {
   0% {
     transform: translate(0, 0);
@@ -107,43 +109,22 @@ import { Icon } from '@iconify/vue'
   }
 }
 
-/* Adding noise and flicker to the glitch effect */
-.glitch-overlay:before,
-.glitch-overlay:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('https://img.freepik.com/free-vector/glitch-background_1217-1312.jpg')
-    repeat;
-  pointer-events: none;
-  opacity: 0.1;
-  z-index: 3;
-  animation: noise 0.2s infinite linear;
+/* Button styles */
+.cv-button {
+  background-color: #c4f000;
+  color: #000;
+  border-radius: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
-.glitch-overlay:after {
-  animation-delay: 0.1s;
-}
-
-/* Smooth flicker effect */
-@keyframes noise {
-  0% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(3px, 3px);
-  }
-  50% {
-    transform: translate(-3px, -3px);
-  }
-  75% {
-    transform: translate(3px, 3px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+.cv-button:hover {
+  background-color: #000;
+  border: 1px solid #c4f000;
+  color: #fafafa;
 }
 </style>

@@ -1,143 +1,223 @@
 <script setup lang="ts">
-import { ref, watchEffect, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useScrollPosition } from '@/composables/useScrollPosition'
 import Hamburger from '@/components/Hamburger.vue'
+import CusDrawer from '@/components/CusCom/CusDrawer.vue'
+import debounce from 'lodash.debounce'
+
 const isMobileMenuOpen = ref(false)
 const isHover = ref(-1)
+const hoverIcon = ref(-1)
+const isDrawerOpen = ref(false)
 const { scrollY } = useScrollPosition()
-
-watchEffect(() => {
-  console.log('scrollY:', scrollY.value)
-})
-const toggleMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
-
-const closeMenu = () => {
-  isMobileMenuOpen.value = false
-}
 
 const hoverMenu = (index: number) => {
   isHover.value = index
 }
 
-// Disable body scroll when the modal is open
+const hoverIconFun = (index: number) => {
+  hoverIcon.value = index
+}
+
+const handleLClickLink = () => {
+  isDrawerOpen.value = false
+}
+
+// Watch scroll position with debounce
+watch(
+  scrollY,
+  debounce(() => {
+    console.log('scrollY:', scrollY.value)
+  }, 200)
+)
+
 onMounted(() => {
-  watchEffect(() => {
-    if (isMobileMenuOpen.value) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+  watch(isMobileMenuOpen, (open) => {
+    document.body.style.overflow = open ? 'hidden' : ''
   })
 })
 
 onBeforeUnmount(() => {
   document.body.style.overflow = ''
 })
+
+const navigation = [
+  { link: '/', value: 'Home' },
+  { link: '/about-me', value: 'About' },
+  { link: '/work-experience', value: 'Works' },
+  { link: '/contact', value: 'Contact' }
+]
+
+const socialIcons = [
+  {
+    icon: 'formkit:facebook',
+    link: 'https://www.facebook.com/than.phourac/'
+  },
+  {
+    icon: 'formkit:github',
+    link: 'https://github.com/phourac'
+  },
+  {
+    icon: 'formkit:linkedin',
+    link: 'https://www.linkedin.com/in/than-phourac-822370267/'
+  },
+  {
+    icon: 'ic:baseline-telegram',
+    link: 'https://t.me/phourac'
+  }
+]
 </script>
 
 <template>
-  <div
-    :class="[
-      scrollY > 20 ? 'bg-black py-2' : 'bg-transparent py-4 ',
-      'sticky flex justify-between items-center md:px-28 px-8 top-0 z-10 overflow-auto transition-bg'
-    ]"
-  >
-    <NuxtImg
+  <CusDrawer v-model="isDrawerOpen">
+    <div
+      v-for="(item, index) in navigation"
+      :key="index"
       v-motion
-      :initial="{ opacity: 0, x: -50 }"
-      :enter="{ opacity: 1, x: 0, transition: { delay: 400 } }"
-      src="/images/white_logo.png"
-      sizes="64"
-    />
-
-    <nav class="relative">
-      <ul class="hidden md:flex gap-8">
-        <li
-          v-for="(item, index) in navigation"
-          :key="index"
+      :initial="{ opacity: 0, y: -20 }"
+      :enter="{ opacity: 1, y: 0, transition: { delay: 600 + index * 100 } }"
+      class="cursor-pointer flex flex-col gap-4"
+      @mouseenter="hoverMenu(index)"
+      @mouseleave="isHover = -1"
+    >
+      <NuxtLink
+        :to="item.link"
+        @click="handleLClickLink"
+        :aria-label="`Navigate to ${item.value} page`"
+      >
+        <span
           v-motion
-          :initial="{
-            opacity: 0,
-            y: -20
-          }"
+          :initial="{ color: '#FAFAFA' }"
+          :hovered="{ color: '#c4f000' }"
+          class="nav-item text-[#FAFAFA] text-2xl"
+        >
+          {{ item.value }}
+        </span>
+      </NuxtLink>
+    </div>
+
+    <div class="flex flex-row items-center gap-6 pt-10">
+      <NuxtLink
+        v-for="(icon, index) in socialIcons"
+        :key="icon.icon"
+        :to="icon.link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cursor-pointer"
+        :aria-label="`Link to ${icon.icon}`"
+      >
+        <Icon
+          :icon="icon.icon"
+          width="28"
+          height="28"
+          role="img"
+          :aria-label="`Link to ${icon.icon}`"
+          :class="index === hoverIcon ? 'text-[#c4f000]' : ''"
+          @mouseenter="hoverIconFun(index)"
+          @mouseleave="hoverIcon = -1"
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
           :enter="{
             opacity: 1,
             y: 0,
-            transition: { delay: 600 + index * 100 }
+            transition: { delay: 1000 + index * 100 }
           }"
-          class="cursor-pointer"
-          @mouseenter="hoverMenu(index)"
-          @mouseleave="isHover = -1"
-        >
-          <NuxtLink :to="item.link">
-            <p
-              v-motion
-              :initial="{
-                // opacity: 1,
-                color: '#FAFAFA'
-              }"
-              :hovered="{
-                color: '#FAFA'
-                // scale: 1.1,
-                // transition: {
-                //   type: 'spring',
-                //   stiffness: 500,
-                //   damping: 15
-                // }
-              }"
-              class="nav-item text-[#FAFAFA]"
-            >
-              {{ item.value }}
-            </p>
-          </NuxtLink>
-        </li>
-      </ul>
-    </nav>
-
-    <nav class="flex flex-row items-center gap-8">
-      <div class="md:flex flex-row items-center gap-8 hidden">
-        <Icon
-          v-for="(icon, index) in [
-            'formkit:facebook',
-            'formkit:github',
-            'formkit:linkedin'
-          ]"
-          :key="icon"
-          v-motion
-          :initial="{ opacity: 0, scale: 0 }"
-          :enter="{
-            opacity: 1,
-            scale: 1,
-            transition: { delay: 800 + index * 100 }
-          }"
-          :hover="{
-            scale: 1.2,
-            transition: { type: 'spring', stiffness: 500 }
-          }"
-          :icon="icon"
-          height="28"
-          width="28"
         />
-      </div>
-      <Hamburger />
-    </nav>
+      </NuxtLink>
+    </div>
+  </CusDrawer>
+
+  <div
+    :class="[
+      scrollY > 20 ? 'bg-black py-2' : 'bg-transparent py-4',
+      'sticky top-0 z-50 transition-bg w-full'
+    ]"
+  >
+    <div class="md:container px-4 mx-auto flex justify-between items-center">
+      <NuxtLink to="/" :aria-label="'Go to Home Page'">
+        <NuxtImg
+          src="/images/white_logo.png"
+          width="64"
+          height="64"
+          loading="lazy"
+          alt="Logo"
+          v-motion
+          :initial="{ opacity: 0, x: -50 }"
+          :enter="{ opacity: 1, x: 0, transition: { delay: 400 } }"
+        />
+      </NuxtLink>
+
+      <nav class="relative">
+        <ul class="hidden md:flex gap-8">
+          <li
+            v-for="(item, index) in navigation"
+            :key="index"
+            class="cursor-pointer"
+            @mouseenter="hoverMenu(index)"
+            @mouseleave="isHover = -1"
+            v-motion
+            :initial="{ opacity: 0, y: -20 }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              transition: { delay: 600 + index * 100 }
+            }"
+          >
+            <NuxtLink
+              :to="item.link"
+              :aria-label="`Navigate to ${item.value} page`"
+            >
+              <span
+                class="nav-item text-[#FAFAFA]"
+                v-motion
+                :initial="{ color: '#FAFAFA' }"
+                :hovered="{ color: '#c4f000' }"
+              >
+                {{ item.value }}
+              </span>
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="flex flex-row items-center gap-8">
+        <div class="hidden md:flex gap-6">
+          <NuxtLink
+            v-for="(icon, index) in socialIcons"
+            :key="icon.icon"
+            :to="icon.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cursor-pointer"
+            :aria-label="`Link to ${icon.icon}`"
+          >
+            <Icon
+              :icon="icon.icon"
+              width="24"
+              height="24"
+              role="img"
+              :aria-label="`Link to ${icon.icon}`"
+              :class="index === hoverIcon ? 'text-[#c4f000]' : ''"
+              @mouseenter="hoverIconFun(index)"
+              @mouseleave="hoverIcon = -1"
+              v-motion
+              :initial="{ opacity: 0, y: -20 }"
+              :enter="{
+                opacity: 1,
+                y: 0,
+                transition: { delay: 600 + index * 100 }
+              }"
+            />
+          </NuxtLink>
+        </div>
+        <Hamburger v-model="isDrawerOpen" />
+      </nav>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
 .transition-bg {
   transition:
     background-color 0.3s ease-in-out,

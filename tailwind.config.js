@@ -23,6 +23,16 @@ export default {
         xl: ['24px', '32px'], // Extra large text
         '2xl': ['30px', '36px'], // Double extra large text
         '3xl': ['36px', '40px'] // Triple extra large text
+      },
+      animation: {
+        'spin-slow': 'spin 10s linear infinite', // Custom spin animation
+        'infinite-scroll': 'infinite-scroll 25s linear infinite'
+      },
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        }
       }
     }
   },

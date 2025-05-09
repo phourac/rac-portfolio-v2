@@ -1,9 +1,15 @@
 <template>
-  <div class="hamburger-menu">
+  <div
+    class="hamburger-menu md:hidden flex"
+    v-motion
+    :initial="{ opacity: 0, x: 50 }"
+    :enter="{ opacity: 1, x: 0, transition: { delay: 600 } }"
+  >
     <input
       type="checkbox"
       id="menu_checkbox"
       class="menu-checkbox"
+      v-model="isDrawerOpen"
       @change="handleToggle"
     />
     <label for="menu_checkbox" class="menu-label">
@@ -15,12 +21,14 @@
 </template>
 
 <script setup lang="ts">
-const isToggle = ref(false)
+// Use defineModel for v-model binding
+const isDrawerOpen = defineModel<boolean>()
 
+// Handle the checkbox toggle event
 const handleToggle = (event: Event) => {
   const checkbox = event.target as HTMLInputElement
-  isToggle.value = checkbox.checked // Update the reactive state
-  console.log('Toggle state:', isToggle.value) // Debugging output
+  isDrawerOpen.value = checkbox.checked // Update the drawer state based on checkbox
+  console.log('Drawer state:', isDrawerOpen.value) // Debugging output
 }
 </script>
 
