@@ -93,38 +93,39 @@
         </div>
 
         <div>
-          <button
-            type="submit"
-            v-motion
-            :initial="{
-              backgroundColor: '#c4f000',
-              color: '#000000'
-            }"
-            :hovered="{
-              backgroundColor: '#000000',
-              border: '1px solid #c4f000',
-              color: '#FAFAFA'
-            }"
-            class="rounded-3xl px-8 py-3 inline-flex items-center gap-2 transition-all duration-300 font-semibold"
-          >
-            Send Me Message
-            <Icon
-              :icon="'lets-icons:message-alt-fill'"
-              width="28"
-              height="28"
-            />
-          </button>
+          <client-only>
+            <button
+              type="submit"
+              v-motion
+              :initial="{ backgroundColor: '#c4f000', color: '#000000' }"
+              :hovered="{
+                backgroundColor: '#000000',
+                border: '1px solid #c4f000',
+                color: '#FAFAFA'
+              }"
+              class="rounded-3xl px-8 py-3 inline-flex items-center gap-2 transition-all duration-300 font-semibold"
+            >
+              Send Me Message
+              <Icon
+                :icon="'lets-icons:message-alt-fill'"
+                width="28"
+                height="28"
+              />
+            </button>
+          </client-only>
         </div>
       </form>
     </div>
   </div>
 
-  <CusAlert
-    v-model="showAlert"
-    message="Your data has been submitted!"
-    type="success"
-    :duration="6000"
-  />
+  <client-only>
+    <CusAlert
+      v-model="showAlert"
+      message="Your data has been submitted!"
+      type="success"
+      :duration="6000"
+    />
+  </client-only>
 </template>
 
 <script setup lang="ts">

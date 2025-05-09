@@ -1,7 +1,7 @@
 <template>
   <section aria-labelledby="intro">
     <div
-      class="lg:h-[700px] h-[1100px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-1 md:pt-16 pt:2 md:container mx-auto px-4 py-8"
+      class="lg:h-[700px] h-[1100px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-10 md:pt-16 pt:2 md:container mx-auto px-4 py-8"
     >
       <!-- Image Section -->
       <div
@@ -12,6 +12,8 @@
           class="object-cover w-full h-full glitch-image"
           alt="A picture of Phourac, a front-end developer"
           loading="lazy"
+          format="webp"
+          quality="70"
         />
         <div class="glitch-overlay"></div>
       </div>
