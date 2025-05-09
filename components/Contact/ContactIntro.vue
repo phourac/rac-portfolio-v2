@@ -1,6 +1,4 @@
-<script setup lang="ts">
-// No logic yet; keep this block clean.
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section

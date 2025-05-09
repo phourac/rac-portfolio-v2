@@ -2,11 +2,14 @@
   <div class="h-auto cursor-pointer w-full px-4">
     <NuxtImg
       src="/images/work-scribble.svg"
+      alt=""
+      role="presentation"
       width="240"
       height="135"
       class="mb-2 ml-4"
       loading="lazy"
     />
+
     <div class="grid grid-cols-12 gap-4">
       <div
         v-for="(item, i) in recentWorks"
@@ -33,12 +36,12 @@
           <NuxtImg
             :src="item.img || '/images/default-image.jpg'"
             alt="Project Image"
-            class="work-img w-full h-full object-contain transition duration-300"
+            :class="`work-img w-full h-full object-contain transition duration-300 img-${i}`"
             loading="lazy"
           />
+
           <div
-            class="overlay absolute inset-0 flex items-end justify-start p-4 pointer-events-none opacity-0 bottom-5 left-5"
-            :class="`overlay overlay-${i}`"
+            :class="`overlay absolute inset-0 flex items-end justify-start p-4 pointer-events-none opacity-0 bottom-5 left-5 overlay-${i}`"
           >
             <p class="text-white text-3xl font-semibold">{{ item.title }}</p>
           </div>
@@ -74,8 +77,8 @@ const showOverlay = (index: number) => {
     gsap.to(img, {
       filter: 'blur(1px)',
       duration: 0.3,
-      ease: 'circ.in',
-      scale: 1.2 // slightly zoom in
+      ease: 'circ.in'
+      // scale: 1.2 // slightly zoom in
     })
   }
 }
@@ -96,8 +99,8 @@ const hideOverlay = (index: number) => {
 
     gsap.to(img, {
       filter: 'blur(0px)',
-      ease: 'circ.in',
-      scale: 1
+      ease: 'circ.in'
+      // scale: 1
     })
   }
 }

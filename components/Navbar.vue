@@ -24,7 +24,6 @@ const handleLClickLink = () => {
   isDrawerOpen.value = false
 }
 
-// Watch scroll position with debounce
 watch(
   scrollY,
   debounce(() => {
@@ -77,7 +76,7 @@ const socialIcons = [
       v-motion
       :initial="{ opacity: 0, y: -20 }"
       :enter="{ opacity: 1, y: 0, transition: { delay: 600 + index * 100 } }"
-      class="cursor-pointer flex flex-col gap-4"
+      class="cursor-pointer flex flex-col gap-4 py-2"
       @mouseenter="hoverMenu(index)"
       @mouseleave="isHover = -1"
     >

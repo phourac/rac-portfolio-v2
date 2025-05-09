@@ -1,11 +1,9 @@
 <template>
   <div>
-    <client-only>
-      <ContractIntro />
-    </client-only>
-    <client-only>
-      <FormContact />
-    </client-only>
+    <ContractIntro />
+    <!-- <client-only> -->
+    <FormContact />
+    <!-- </client-only> -->
   </div>
 </template>
 

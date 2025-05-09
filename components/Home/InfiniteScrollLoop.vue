@@ -11,20 +11,8 @@
       <div class="marquee-inner">
         <div class="marquee">
           <div
-            v-for="(logo, i) in [...logos, ...logos]"
+            v-for="(logo, i) in duplicatedLogos"
             :key="`logo-${i}`"
-            class="logo-item"
-          >
-            <span class="text-3xl text-gray-400 font-bold">{{
-              logo.title
-            }}</span>
-          </div>
-        </div>
-
-        <div class="marquee">
-          <div
-            v-for="(logo, i) in logos"
-            :key="`logo-2-${i}`"
             class="logo-item"
           >
             <span class="text-3xl text-gray-400 font-bold">{{
@@ -46,6 +34,9 @@ const logos = [
   { title: 'Thortok' },
   { title: 'Bloc' }
 ]
+
+// Create duplicated array for seamless scrolling
+const duplicatedLogos = [...logos, ...logos]
 </script>
 
 <style scoped>
@@ -60,17 +51,24 @@ const logos = [
     black calc(100% - 128px),
     transparent 100%
   );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 128px,
+    black calc(100% - 128px),
+    transparent 100%
+  );
 }
 
 .marquee-inner {
   display: flex;
-  width: 100%; /* Makes room for two copies of the content */
+  width: 200%; /* Makes room for duplicated content */
   animation: marquee 30s linear infinite; /* Adjust time to control speed */
 }
 
 .marquee {
   display: flex;
-  width: 100%; /* Each .marquee is half of the total width */
+  width: 100%;
   align-items: center;
 }
 
@@ -90,7 +88,7 @@ const logos = [
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Move exactly one .marquee width */
+    transform: translateX(-50%); /* Move exactly half the total width */
   }
 }
 </style>

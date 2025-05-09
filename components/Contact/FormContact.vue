@@ -73,8 +73,6 @@
           </div>
         </div>
 
-        <!-- Password Field -->
-
         <div class="flex-1">
           <div class="relative flex flex-col gap-4">
             <Label class="text-[16px] font-medium text-gray-300">Message</Label>
@@ -84,11 +82,6 @@
               placeholder="Write your message here..."
               class="py-[19px] px-[20px] border border-paper rounded-[10px] bg-white font-[400] text-black focus:outline-none w-full"
             ></textarea>
-            <!-- <transition name="fade">
-              <p v-if="errors.message" class="text-red-500 text-sm mt-1">
-                {{ errors.message }}
-              </p>
-            </transition> -->
           </div>
         </div>
 
@@ -140,26 +133,20 @@ function triggerAlert() {
   showAlert.value = true
 }
 
-// 1. Define schema
 const schema = yup.object({
   name: yup.string().required('Full name is required'),
   email: yup.string().required('Email is required').email('Email is invalid')
-  // message: yup.string().required('Message is required')
 })
 
-// 2. Setup form
 const { handleSubmit, errors } = useForm({ validationSchema: schema })
 
-// 3. Match field names exactly
 const { value: name } = useField<string>('name')
 const { value: email } = useField<string>('email')
 const { value: message } = useField<string>('message')
 const { value: phone } = useField<string>('phone')
 
-// 4. Submit handler
 const onSubmit = handleSubmit(async (values) => {
   try {
-    // Construct message
     const messageText = `
       📝 New Form Submission:
       👤 Name: ${values.name}
@@ -168,7 +155,6 @@ const onSubmit = handleSubmit(async (values) => {
       📞 Phone: ${values.phone}
     `.trim()
 
-    // Send message to Telegram
     const res = await fetch(
       `https://api.telegram.org/bot7795994378:AAFWvl-zqVRmxZgoXyczlcTNRW1TrHdbRYs/sendMessage`,
       {
@@ -191,8 +177,6 @@ const onSubmit = handleSubmit(async (values) => {
       console.error('Telegram error:', result.description)
       throw new Error(result.description)
     }
-
-    // alert('Message sent successfully ✅')
   } catch (err) {
     console.error('Failed to send message:', err)
     alert('Failed to send message ❌')
