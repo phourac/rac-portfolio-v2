@@ -1,5 +1,5 @@
 <template>
-  <div class="h-auto cursor-pointer w-[100%] px-4">
+  <div class="h-auto cursor-pointer w-full px-4">
     <NuxtImg
       src="/images/work-scribble.svg"
       width="240"
@@ -11,7 +11,9 @@
       <div
         v-for="(item, i) in recentWorks"
         :key="i"
-        :class="i < 2 ? 'col-span-6' : 'col-span-4'"
+        :class="
+          i < 2 ? 'col-span-12 lg:col-span-6' : 'col-span-12 lg:col-span-4'
+        "
       >
         <div
           class="w-full h-[400px] overflow-hidden rounded-[10px] p-16 relative group"

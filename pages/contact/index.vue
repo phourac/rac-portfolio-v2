@@ -1,10 +1,14 @@
 <template>
   <main>
     <section v-lazy>
-      <ContractIntro />
+      <client-only>
+        <ContractIntro />
+      </client-only>
     </section>
     <section v-lazy>
-      <FormContact />
+      <client-only>
+        <FormContact />
+      </client-only>
     </section>
   </main>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <section class="md:container mx-auto px-4 py-8">
     <div
-      class="max-w-4xl mx-auto px-10 py-12 border border-black/5 rounded-2xl bg-paper flex flex-col items-center shadow-inner"
+      class="w-full mx-auto px-10 py-12 border border-black/5 rounded-2xl bg-paper flex flex-col items-center shadow-inner"
     >
       <h2
         class="text-[40px] md:text-[60px] leading-tight mb-5 font-normal text-black text-center"

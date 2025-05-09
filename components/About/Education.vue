@@ -5,7 +5,7 @@
     <div class="flex flex-col">
       <div class="flex flex-col">
         <h2
-          class="text-[80px] leading-[90px] mb-[40px] bg-[linear-gradient(#fff,_#696969)] bg-clip-text text-transparent"
+          class="md:text-[80px] text-[54px] leading-[90px] mb-[40px] bg-[linear-gradient(#fff,_#696969)] bg-clip-text text-transparent"
         >
           Education & Experience
         </h2>
