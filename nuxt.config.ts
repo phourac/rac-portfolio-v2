@@ -21,8 +21,24 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@vueuse/motion/nuxt',
-    '@hypernym/nuxt-gsap'
+    '@hypernym/nuxt-gsap',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-gtag'
   ],
+  robots: {
+    allow: '/',
+    disallow: '/admin',
+    sitemap: 'https://phourac.site/sitemap_index.xml'
+  },
+  site: {
+    url: 'https://phourac.site',
+    name: 'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+  },
+  gtag: {
+    enabled: true,
+    id: 'G-NVQY0756MX'
+  },
   gsap: {
     composables: true,
     provide: false,
