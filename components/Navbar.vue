@@ -4,13 +4,15 @@ import { Icon } from '@iconify/vue'
 import { useScrollPosition } from '@/composables/useScrollPosition'
 import Hamburger from '@/components/Hamburger.vue'
 import CusDrawer from '@/components/CusCom/CusDrawer.vue'
-import debounce from 'lodash.debounce'
+import { useRoute } from 'vue-router'
 
 const isMobileMenuOpen = ref(false)
 const isHover = ref(-1)
 const hoverIcon = ref(-1)
 const isDrawerOpen = ref(false)
 const { scrollY } = useScrollPosition()
+const isScrolled = ref(false)
+const route = useRoute()
 
 const hoverMenu = (index: number) => {
   isHover.value = index
@@ -24,14 +26,13 @@ const handleLClickLink = () => {
   isDrawerOpen.value = false
 }
 
-watch(
-  scrollY,
-  debounce(() => {
-    console.log('scrollY:', scrollY.value)
-  }, 200)
-)
+watch(scrollY, (newValue) => {
+  isScrolled.value = newValue > 20
+})
 
 onMounted(() => {
+  isScrolled.value = window.scrollY > 20
+
   watch(isMobileMenuOpen, (open) => {
     document.body.style.overflow = open ? 'hidden' : ''
   })
@@ -129,7 +130,7 @@ const socialIcons = [
 
   <div
     :class="[
-      scrollY > 20 ? 'bg-black py-2' : 'bg-transparent py-4',
+      isScrolled ? 'bg-black py-2' : 'bg-transparent py-4',
       'sticky top-0 z-50 transition-bg w-full'
     ]"
   >
@@ -168,10 +169,18 @@ const socialIcons = [
               :aria-label="`Navigate to ${item.value} page`"
             >
               <span
-                class="nav-item text-[#FAFAFA]"
+                class="nav-item transition-colors duration-300 hover:text-[#c4f000]"
+                :class="{
+                  'text-[#c4f000]': route.path === item.link,
+                  'text-[#FAFAFA]': route.path !== item.link
+                }"
                 v-motion
-                :initial="{ color: '#FAFAFA' }"
-                :hovered="{ color: '#c4f000' }"
+                :initial="{ opacity: 0, y: -20 }"
+                :enter="{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 600 + index * 100 }
+                }"
               >
                 {{ item.value }}
               </span>

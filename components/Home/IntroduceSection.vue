@@ -19,15 +19,16 @@
       </div>
 
       <!-- Text Section -->
-      <div class="flex flex-col gap-4 w-full lg:w-1/2">
+      <!-- Text Section -->
+      <div class="text-section flex flex-col gap-4 w-full lg:w-1/2">
         <h1
           id="intro"
           class="text-[32px] md:text-[48px] lg:text-[56px] leading-tight text-primary font-bold"
         >
           Hi, I'm Phourac.
           <span class="text-gray-300">I am a front-end developer</span>
-          <span class="text-gray-400">specializing in interfaces</span>
-          <span class="text-gray-500">and web applications.</span>
+          <span class="text-gray-400"> specializing in interfaces</span>
+          <span class="text-gray-500"> and web applications.</span>
         </h1>
 
         <p class="text-secondary text-lg w-fit">
@@ -51,24 +52,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
+import gsap from 'gsap'
 
-const target = ref<HTMLElement>()
+const target = ref<HTMLElement | null>(null)
 const { y } = useScroll(window)
 
 const { transform } = useElementTransform(target, (initData) => {
-  initData.translateX = '0px' // Initial position
+  initData.translateX = '0px'
 })
 
 watch(y, (scrollY) => {
   transform.translateX = `${scrollY * 1.5}px`
 })
+
+onMounted(() => {
+  gsap.from('.glitch-image', {
+    x: -100,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  })
+
+  gsap.from('.text-section', {
+    x: 100,
+    opacity: 0,
+    duration: 1,
+    delay: 0.3,
+    ease: 'power3.out'
+  })
+})
 </script>
 
 <style scoped>
-/* Glitch effect on image */
 .glitch-image {
   position: relative;
   display: inline-block;

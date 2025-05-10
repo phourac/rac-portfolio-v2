@@ -1,8 +1,6 @@
 <script setup>
-import { onMounted, nextTick, ref, onBeforeUnmount, onUpdated } from 'vue'
-// import gsap from 'gsap'
-// import ScrollTrigger from 'gsap/ScrollTrigger'
-// import ScrollToPlugin from 'gsap/ScrollToPlugin'
+import { onMounted, nextTick, ref, onUpdated } from 'vue'
+
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -44,6 +42,11 @@ definePageMeta({
 const scrollContainerRef = ref(null)
 let locomotiveScroll = null
 let resizeObserver = null
+const scrollY = ref(0) // 👈 Create ref to store scroll.y
+
+// watchEffect(() => {
+//   console.log('scrollYDefal', scrollY.value)
+// })
 
 // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -72,7 +75,9 @@ onMounted(async () => {
       scrollFromAnywhere: true,
       offset: ['0', '10%']
     })
-
+    locomotiveScroll.on('scroll', (args) => {
+      scrollY.value = args.scroll.y // 👈 Store scrollY value
+    })
     document.body.style.height = '100%'
     document.documentElement.style.height = '100%'
 
@@ -84,48 +89,6 @@ onMounted(async () => {
       requestAnimationFrame(updateScroll)
     })
     resizeObserver.observe(scrollContainerRef.value)
-
-    // Configure ScrollTrigger
-    // ScrollTrigger.scrollerProxy(scrollContainerRef.value, {
-    //   scrollTop(value) {
-    //     return arguments.length
-    //       ? locomotiveScroll.scrollTo(value, 0, 0)
-    //       : locomotiveScroll.scroll.instance.scroll.y
-    //   },
-    //   getBoundingClientRect() {
-    //     return {
-    //       top: 0,
-    //       left: 0,
-    //       width: window.innerWidth,
-    //       height: window.innerHeight
-    //     }
-    //   },
-    //   pinType: scrollContainerRef.value.style.transform ? 'transform' : 'fixed'
-    // })
-
-    // locomotiveScroll.on('scroll', ScrollTrigger.update)
-
-    // Animate panels
-    // if (process.client) {
-    //   const { $gsap } = useNuxtApp()
-
-    //   $gsap.utils.toArray('.panel').forEach((panel) => {
-    //     $gsap.to(panel, {
-    //       scrollTrigger: {
-    //         trigger: panel,
-    //         scroller: scrollContainerRef.value,
-    //         start: 'top center',
-    //         end: 'bottom center',
-    //         scrub: 1,
-    //         markers: false
-    //       },
-    //       opacity: 1,
-    //       x: 0,
-    //       duration: 1.5,
-    //       ease: 'power3.out'
-    //     })
-    //   })
-    // }
   } catch (error) {
     console.error('Failed to initialize Locomotive Scroll:', error)
   }
@@ -134,16 +97,6 @@ onMounted(async () => {
 onUpdated(() => {
   updateScroll()
 })
-
-// onBeforeUnmount(() => {
-//   if (locomotiveScroll) {
-//     ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-//     locomotiveScroll.destroy()
-//   }
-//   if (resizeObserver && scrollContainerRef.value) {
-//     resizeObserver.unobserve(scrollContainerRef.value)
-//   }
-// })
 </script>
 
 <template>

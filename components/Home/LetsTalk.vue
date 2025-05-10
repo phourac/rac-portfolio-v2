@@ -14,13 +14,15 @@
         exceptional work.
       </p>
       <div class="mt-8">
-        <button
-          ref="ctaButton"
-          class="bg-black text-gray-400 rounded-full py-4 px-8 text-base flex items-center gap-2 shadow-md transition-all"
-        >
-          Let's Talk
-          <Icon icon="material-symbols:download" class="w-5 h-5" />
-        </button>
+        <NuxtLink to="/contact">
+          <button
+            ref="ctaButton"
+            class="bg-black text-gray-400 rounded-full py-4 px-8 text-base flex items-center gap-2 shadow-md transition-all"
+          >
+            Let's Talk
+            <Icon icon="material-symbols:download" class="w-5 h-5" />
+          </button>
+        </NuxtLink>
       </div>
     </div>
   </section>
