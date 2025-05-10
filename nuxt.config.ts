@@ -8,8 +8,66 @@ export default defineNuxtConfig({
       },
       title: 'Rac Portfolio', // default fallback title
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-      charset: 'utf-16',
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1'
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+        },
+        // Open Graph (Facebook, LinkedIn, etc.)
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content:
+            'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+        },
+        {
+          name: 'keywords',
+          content: ''
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content:
+            'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: 'https://phourac.site/images/home-image/mobile.png?v=1'
+        }, // Replace with your logo URL
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: 'https://phourac.site/'
+        }, // Replace with your website URL
+        // Twitter Card
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content:
+            'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content:
+            'Rac is a creative developer showcasing recent projects and unique frontend experiences.'
+        },
+        {
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          content: 'https://phourac.site/images/home-image/mobile.png?v=1'
+        }, // Replace with your logo URL
+        {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        } // Use 'summary_large_image' for large previews
+      ]
     }
   },
   css: [
@@ -29,7 +87,7 @@ export default defineNuxtConfig({
   robots: {
     allow: '/',
     disallow: '/admin',
-    sitemap: 'https://phourac.site/sitemap_index.xml'
+    sitemap: 'https://phourac.site/sitemap.xml'
   },
   site: {
     url: 'https://phourac.site',
