@@ -26,7 +26,8 @@ export default defineNuxtConfig({
         },
         {
           name: 'keywords',
-          content: ''
+          content:
+            'creative developer, portfolio, frontend projects, Rac, web development ,than phourac ,Than Phourac , Phourac , Phourac Than , Phourac Than , Phourac Than Phourac , Raccy ,Racy'
         },
         {
           hid: 'og:description',

@@ -14,7 +14,7 @@ definePageMeta({
     {
       name: 'keywords',
       content:
-        'Vue, Nuxt, Locomotive Scroll, GSAP, Smooth Scroll, SEO , Portfolio , Animation , Rac ,Phourac , Than Phourac'
+        'creative developer, portfolio, frontend projects, Rac, web development ,than phourac ,Than Phourac , Phourac , Phourac Than , Phourac Than , Phourac Than Phourac , Raccy ,Racy'
     },
     { property: 'og:title', content: 'Awesome Smooth Scroll Page' },
     {
