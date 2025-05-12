@@ -58,8 +58,8 @@ useHead({
         'Explore Rac’s latest frontend development work, creative projects, and how to get in touch.'
     },
     { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://yourdomain.com/' },
-    { property: 'og:image', content: 'https://yourdomain.com/og-image.jpg' },
+    { property: 'og:url', content: 'https://phourac.site/' },
+    { property: 'og:image', content: 'https://phourac.site/images/banner.png' },
 
     // Twitter Card
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -71,10 +71,10 @@ useHead({
     },
     {
       name: 'twitter:image',
-      content: 'https://yourdomain.com/twitter-image.jpg'
+      content: 'https://phourac.site/images/banner.png'
     }
   ],
-  link: [{ rel: 'canonical', href: 'https://yourdomain.com/' }]
+  link: [{ rel: 'canonical', href: 'https://phourac.site/' }]
 })
 </script>
 
