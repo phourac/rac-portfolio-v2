@@ -8,6 +8,17 @@
 </template>
 
 <script lang="ts" setup>
+useSeoMeta({
+  title: 'Contact | Than Phourac - Portfolio',
+  ogTitle: 'Contact | Than Phourac - Portfolio',
+  description:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogDescription:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterCard: 'summary_large_image'
+})
 useHead({
   title: 'Contact Me - Rac',
   meta: [

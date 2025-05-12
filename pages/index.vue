@@ -19,6 +19,19 @@ const InfiniteScrollLoop = defineAsyncComponent(
 )
 
 // Add SEO metadata
+
+useSeoMeta({
+  title: 'Than Phourac - Portfolio',
+  ogTitle: 'Than Phourac - Portfolio',
+  description:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogDescription:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterCard: 'summary_large_image'
+})
+
 useHead({
   title: 'Home - Rac',
   meta: [
@@ -30,7 +43,7 @@ useHead({
     {
       name: 'keywords',
       content:
-        'creative developer, portfolio, frontend projects, Rac, web development'
+        'creative developer, portfolio, frontend projects, Rac, web development ,than phourac ,Than Phourac , Phourac , Phourac Than , Phourac Than , Phourac Than Phourac , Raccy ,Racy'
     },
     { name: 'author', content: 'Rac' },
 

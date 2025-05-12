@@ -6,6 +6,18 @@ import Freelancer from '~/components/About/Freelancer.vue'
 import LetsTalk from '~/components/Home/LetsTalk.vue'
 
 // Define SEO meta tags
+
+useSeoMeta({
+  title: 'About Me | Than Phourac - Portfolio',
+  ogTitle: 'About Me | Than Phourac - Portfolio',
+  description:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogDescription:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterCard: 'summary_large_image'
+})
 useHead({
   title: 'About Me - Rac',
   meta: [

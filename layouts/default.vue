@@ -4,41 +4,19 @@ import { onMounted, nextTick, ref, onUpdated } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
-definePageMeta({
-  title: 'Home - Rac',
-  meta: [
-    {
-      name: 'description',
-      content: 'Rac portfolio'
-    },
-    {
-      name: 'keywords',
-      content:
-        'creative developer, portfolio, frontend projects, Rac, web development ,than phourac ,Than Phourac , Phourac , Phourac Than , Phourac Than , Phourac Than Phourac , Raccy ,Racy'
-    },
-    { property: 'og:title', content: 'Awesome Smooth Scroll Page' },
-    {
-      property: 'og:description',
-      content: 'Experience smooth scrolling with stunning GSAP animations.'
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://yourdomain.com/smooth-scroll' },
-    {
-      property: 'og:image',
-      content: 'https://yourdomain.com/preview-image.jpg'
-    },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Awesome Smooth Scroll Page' },
-    {
-      name: 'twitter:description',
-      content: 'A high-performance Vue component with smooth scrolling.'
-    },
-    {
-      name: 'twitter:image',
-      content: 'https://yourdomain.com/preview-image.jpg'
-    }
-  ]
+useSeoMeta({
+  title: 'Than Phourac - Portfolio',
+  ogTitle: 'Than Phourac - Portfolio',
+  description:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogDescription:
+    'Rac is a creative developer showcasing recent projects and unique frontend experiences.',
+  ogImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterImage: 'https://phourac.site/images/banner.png?v=1',
+  twitterCard: 'summary_large_image'
 })
+
+definePageMeta({ layout: 'default' })
 const scrollContainerRef = ref(null)
 let locomotiveScroll = null
 let resizeObserver = null
