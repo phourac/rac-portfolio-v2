@@ -1,23 +1,25 @@
 <template>
-  <div
-    class="w-full h-[400px] overflow-hidden rounded-[10px] p-16 relative group"
-    :style="bgGradient"
-    @mouseenter="showOverlay"
-    @mouseleave="hideOverlay"
-  >
-    <NuxtImg
-      :src="img || '/images/default-image.jpg'"
-      alt="Project Image"
-      :class="`work-img w-full h-full object-contain transition duration-300 ${imgClass}`"
-      loading="lazy"
-    />
-
+  <NuxtLink :to="`/work-experience/${slug}`" class="block">
     <div
-      :class="`overlay absolute inset-0 flex items-end justify-start p-4 pointer-events-none opacity-0 ${overlayClass}`"
+      class="w-full h-[400px] overflow-hidden rounded-[10px] p-16 relative group"
+      :style="bgGradient"
+      @mouseenter="showOverlay"
+      @mouseleave="hideOverlay"
     >
-      <p class="text-white text-3xl font-semibold">{{ title }}</p>
+      <NuxtImg
+        :src="img || '/images/default-image.jpg'"
+        alt="Project Image"
+        :class="`work-img w-full h-full object-contain transition duration-300 ${imgClass}`"
+        loading="lazy"
+      />
+
+      <div
+        :class="`overlay absolute inset-0 flex items-end justify-start p-4 pointer-events-none opacity-0 ${overlayClass}`"
+      >
+        <p class="text-white text-3xl font-semibold">{{ title }}</p>
+      </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -28,6 +30,7 @@ const props = defineProps<{
   img: string
   title: string
   index: number
+  slug: string
 }>()
 
 const overlayClass = `overlay-${props.index}`

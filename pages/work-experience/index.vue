@@ -1,8 +1,14 @@
 <template>
   <PersonalWork />
   <Projects />
+  <CompanyWork />
+  <CompanyProjects />
+  <LetsTalk />
 </template>
 <script setup lang="ts">
+import LetsTalk from '~/components/Home/LetsTalk.vue'
+import CompanyProjects from '~/components/Work/CompanyProjects.vue'
+import CompanyWork from '~/components/Work/CompanyWork.vue'
 import PersonalWork from '~/components/Work/PersonalWork.vue'
 import Projects from '~/components/Work/Projects.vue'
 

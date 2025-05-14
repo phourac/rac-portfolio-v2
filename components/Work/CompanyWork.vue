@@ -7,15 +7,16 @@
         <h2
           class="md:text-[80px] text-[54px] leading-[90px] mb-[40px] bg-[linear-gradient(#fff,_#696969)] bg-clip-text text-transparent"
         >
-          Personal Projects
+          Company Projects
         </h2>
         <p
           class="pl-[40px] text-[20px] leading-[28px] md:pr-[400px] mb-[16px] bg-[linear-gradient(#fff,_#696969)] bg-clip-text text-transparent"
         >
-          My personal projects showcase my passion for web development and
-          problem-solving. These projects highlight my ability to design and
-          implement innovative solutions, leveraging modern technologies to
-          create impactful and user-friendly applications.
+          These company projects showcase my expertise in delivering tailored
+          solutions that solve real business challenges. I specialize in
+          designing and developing scalable, innovative, and user-friendly
+          applications that help companies achieve their goals using the latest
+          web technologies.
         </p>
       </div>
     </div>
