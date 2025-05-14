@@ -1,9 +1,11 @@
 <template>
-  <div class="h-[calc(100vh-210px)] flex justify-center items-center">
-    Not Available Yet.
-  </div>
+  <PersonalWork />
+  <Projects />
 </template>
 <script setup lang="ts">
+import PersonalWork from '~/components/Work/PersonalWork.vue'
+import Projects from '~/components/Work/Projects.vue'
+
 useSeoMeta({
   title: 'Work | Than Phourac - Portfolio',
   ogTitle: 'Work | Than Phourac - Portfolio',
