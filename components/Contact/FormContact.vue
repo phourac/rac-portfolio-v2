@@ -89,6 +89,7 @@
           <client-only>
             <button
               type="submit"
+              :disabled="isSubmitting"
               v-motion
               :initial="{ backgroundColor: '#c4f000', color: '#000000' }"
               :hovered="{
@@ -96,11 +97,15 @@
                 border: '1px solid #c4f000',
                 color: '#FAFAFA'
               }"
-              class="rounded-3xl px-8 py-3 inline-flex items-center gap-2 transition-all duration-300 font-semibold"
+              class="rounded-3xl px-8 py-3 inline-flex items-center gap-2 transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Me Message
+              {{ isSubmitting ? 'Sending...' : 'Send Me Message' }}
               <Icon
-                :icon="'lets-icons:message-alt-fill'"
+                :icon="
+                  isSubmitting
+                    ? 'eos-icons:loading'
+                    : 'lets-icons:message-alt-fill'
+                "
                 width="28"
                 height="28"
               />
@@ -114,8 +119,8 @@
   <client-only>
     <CusAlert
       v-model="showAlert"
-      message="Your data has been submitted!"
-      type="success"
+      :message="alertMessage"
+      :type="alertType"
       :duration="6000"
     />
   </client-only>
@@ -128,8 +133,13 @@ import * as yup from 'yup'
 import CusAlert from './CusAlert.vue'
 
 const showAlert = ref(false)
+const alertMessage = ref('')
+const alertType = ref<'success' | 'error'>('success')
+const isSubmitting = ref(false)
 
-function triggerAlert() {
+function triggerAlert(message: string, type: 'success' | 'error' = 'success') {
+  alertMessage.value = message
+  alertType.value = type
   showAlert.value = true
 }
 
@@ -138,7 +148,9 @@ const schema = yup.object({
   email: yup.string().required('Email is required').email('Email is invalid')
 })
 
-const { handleSubmit, errors } = useForm({ validationSchema: schema })
+const { handleSubmit, errors, resetForm } = useForm({
+  validationSchema: schema
+})
 
 const { value: name } = useField<string>('name')
 const { value: email } = useField<string>('email')
@@ -146,40 +158,28 @@ const { value: message } = useField<string>('message')
 const { value: phone } = useField<string>('phone')
 
 const onSubmit = handleSubmit(async (values) => {
+  isSubmitting.value = true
+
   try {
-    const messageText = `
-      📝 New Form Submission:
-      👤 Name: ${values.name}
-      📧 Email: ${values.email}
-      💬 Message: ${values.message}
-      📞 Phone: ${values.phone}
-    `.trim()
-
-    const res = await fetch(
-      `https://api.telegram.org/bot7795994378:AAFWvl-zqVRmxZgoXyczlcTNRW1TrHdbRYs/sendMessage`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          chat_id: 670761636,
-          text: messageText,
-          parse_mode: 'HTML'
-        })
+    // Call your Nuxt 3 API route
+    const { data } = await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        name: values.name,
+        email: values.email,
+        message: values.message,
+        phone: values.phone
       }
-    )
-    triggerAlert()
+    })
 
-    const result = await res.json()
-
-    if (!res.ok) {
-      console.error('Telegram error:', result.description)
-      throw new Error(result.description)
-    }
-  } catch (err) {
-    console.error('Failed to send message:', err)
-    alert('Failed to send message ❌')
+    // Success
+    triggerAlert('Your message has been sent successfully! 🎉', 'success')
+    resetForm()
+  } catch (error) {
+    console.error('Failed to send message:', error)
+    triggerAlert('Failed to send message. Please try again. ❌', 'error')
+  } finally {
+    isSubmitting.value = false
   }
 })
 </script>
