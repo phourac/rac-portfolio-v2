@@ -37,14 +37,16 @@
         </p>
 
         <div>
-          <button class="cv-button">
-            Download CV
-            <Icon
-              :icon="'material-symbols:download-rounded'"
-              width="28"
-              height="28"
-            />
-          </button>
+          <a href="/Than Phourac.pdf" download>
+            <button class="cv-button">
+              Download CV
+              <Icon
+                :icon="'material-symbols:download-rounded'"
+                width="28"
+                height="28"
+              />
+            </button>
+          </a>
         </div>
       </div>
     </div>
