@@ -128,10 +128,10 @@ const socialIcons = [
     </div>
   </CusDrawer>
 
-  <div
+  <header
     :class="[
       isScrolled ? 'bg-black py-2' : 'bg-transparent py-4',
-      'sticky top-0 z-50 transition-bg w-full'
+      'navbar-sticky transition-bg w-full'
     ]"
   >
     <div class="md:container px-4 mx-auto flex justify-between items-center">
@@ -222,10 +222,16 @@ const socialIcons = [
         <Hamburger v-model="isDrawerOpen" />
       </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
 .transition-bg {
   transition:
     background-color 0.3s ease-in-out,

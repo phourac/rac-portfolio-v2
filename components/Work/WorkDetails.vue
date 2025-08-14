@@ -13,10 +13,7 @@
 
       <!-- Description -->
       <p class="text-[18px] leading-[28px] text-gray-300 mb-6">
-        My personal projects showcase my passion for web development and
-        problem-solving. These projects highlight my ability to design and
-        implement innovative solutions, leveraging modern technologies to create
-        impactful and user-friendly applications.
+        {{ project?.desc }}
       </p>
 
       <!-- Tools / Libraries used -->
@@ -84,6 +81,7 @@ const slug = route.params.slug
 
 // Example structure
 
-const project = personal_project.find((p) => p.slug === slug)
+const mergedProjects = [...personal_project, ...company_project]
+const project = mergedProjects.find((p) => p.slug === slug)
 const title = project?.title || 'Project Not Found'
 </script>

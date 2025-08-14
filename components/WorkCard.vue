@@ -1,5 +1,9 @@
 <template>
-  <NuxtLink :to="`/work-experience/${slug}`" class="block">
+  <NuxtLink
+    :to="`/work-experience/${slug}`"
+    class="block"
+    @onClick="scrollToTop"
+  >
     <div
       class="w-full h-[400px] overflow-hidden rounded-[10px] p-16 relative group"
       :style="bgGradient"
@@ -32,6 +36,10 @@ const props = defineProps<{
   index: number
   slug: string
 }>()
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0 })
+}
 
 const overlayClass = `overlay-${props.index}`
 const imgClass = `img-${props.index}`
