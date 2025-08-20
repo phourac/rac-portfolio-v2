@@ -1,11 +1,11 @@
 <template>
-  <!-- <h1>{{ name }}</h1> -->
+  <h1>{{ name }}</h1>
   <!-- <h1>{{ props.name }}</h1> -->
   <!-- <h1>{{ counter }}</h1> -->
 
-  <!-- <button @click="props.handleCLick">click</button> -->
+  <button @click="props.handleCLick">click</button>
   <slot name="header" />
-  <!-- <button @click="changeProps">chnage</button> -->
+  <button @click="changeProps">Change</button>
   <p>{{ props.listRef?.length! > 0 ? 'Yes' : 'No' }}</p>
   <p>{{ JSON.stringify(props.listRef) }}</p>
 </template>
