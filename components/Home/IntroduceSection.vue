@@ -8,7 +8,7 @@
         class="relative overflow-hidden w-full lg:w-1/2 max-w-[800px] lg:max-w-[450px] min-h-[300px] sm:min-h-[400px] md:min-h-[400px] rounded-3xl"
       >
         <NuxtImg
-          src="/images/me.png"
+          src="/images/me.jpg"
           class="object-cover w-full h-full glitch-image"
           alt="A picture of Phourac, a front-end developer"
           loading="lazy"
