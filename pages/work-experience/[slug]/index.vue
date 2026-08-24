@@ -4,63 +4,50 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import WorkDetails from '~/components/Work/WorkDetails.vue'
 
 const route = useRoute()
-const slug = route.params.slug as string
+const slug = (route.params.slug as string) || ''
+const { getProjectBySlug } = useProjects()
 
-const seoTitle = `${slug} | Than Phourac - Portfolio`
-const seoDescription = `Explore Rac’s work on ${slug}, showcasing frontend development and creative projects.`
-const seoUrl = `https://phourac.site/${slug}`
-const seoImage = 'https://phourac.site/images/banner.png'
+const project = computed(() => getProjectBySlug(slug))
+const projectTitle = computed(() => project.value?.name || project.value?.title || slug)
+
+const seoTitle = computed(() => `${projectTitle.value} | Than Phourac - Portfolio`)
+const seoDescription = computed(() => {
+  if (!project.value?.desc) return `Explore Rac’s work on ${projectTitle.value}, showcasing frontend development and creative projects.`
+  const text = Array.isArray(project.value.desc) ? project.value.desc.join(' ') : project.value.desc
+  return text.replace(/<[^>]*>?/gm, '').substring(0, 160)
+})
+const seoUrl = computed(() => `https://phourac.site/work-experience/${slug}`)
+const seoImage = computed(() => project.value?.img || 'https://phourac.site/images/banner.png')
 
 useSeoMeta({
-  title: seoTitle,
-  ogTitle: seoTitle,
-  description: seoDescription,
-  ogDescription: seoDescription,
-  ogImage: seoImage,
-  twitterImage: seoImage,
+  title: seoTitle.value,
+  ogTitle: seoTitle.value,
+  description: seoDescription.value,
+  ogDescription: seoDescription.value,
+  ogImage: seoImage.value,
+  twitterImage: seoImage.value,
   twitterCard: 'summary_large_image'
 })
 
 useHead({
-  title: seoTitle,
+  title: seoTitle.value,
   meta: [
-    {
-      name: 'description',
-      content: seoDescription
-    },
-    {
-      name: 'keywords',
-      content: `${slug}, creative developer, portfolio, frontend projects, Rac, web development, than phourac`
-    },
+    { name: 'description', content: seoDescription.value },
+    { name: 'keywords', content: `${projectTitle.value}, creative developer, portfolio, frontend projects, Rac, web development, than phourac` },
     { name: 'author', content: 'Rac' },
-
-    // Open Graph for social sharing
-    {
-      property: 'og:title',
-      content: seoTitle
-    },
-    {
-      property: 'og:description',
-      content: seoDescription
-    },
+    { property: 'og:title', content: seoTitle.value },
+    { property: 'og:description', content: seoDescription.value },
     { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: seoUrl },
-    { property: 'og:image', content: seoImage },
-
-    // Twitter Card
+    { property: 'og:url', content: seoUrl.value },
+    { property: 'og:image', content: seoImage.value },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: seoTitle },
-    {
-      name: 'twitter:description',
-      content: seoDescription
-    },
-    {
-      name: 'twitter:image',
-      content: seoImage
-    }
+    { name: 'twitter:title', content: seoTitle.value },
+    { name: 'twitter:description', content: seoDescription.value },
+    { name: 'twitter:image', content: seoImage.value }
   ],
-  link: [{ rel: 'canonical', href: seoUrl }]
+  link: [{ rel: 'canonical', href: seoUrl.value }]
 })
 </script>

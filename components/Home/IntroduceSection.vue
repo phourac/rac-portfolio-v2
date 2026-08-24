@@ -32,7 +32,7 @@
         </h1>
 
         <p class="text-secondary text-lg w-fit">
-          With 2 years of experience, I'm passionate about creating efficient,
+          With over {{ yearsOfExperience }} years of experience, I'm passionate about creating efficient,
           responsive, and user-friendly interfaces.
         </p>
 
@@ -54,10 +54,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
 import gsap from 'gsap'
+
+const startYear = 2023
+const currentYear = new Date().getFullYear()
+const yearsOfExperience = computed(() => Math.max(1, currentYear - startYear))
 
 const target = ref<HTMLElement | null>(null)
 const { y } = useScroll(window)

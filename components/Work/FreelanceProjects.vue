@@ -1,7 +1,7 @@
 <template>
   <div class="h-auto cursor-pointer w-full px-4">
     <!-- Loading Skeleton -->
-    <div v-if="pending && !personalProjects.length" class="grid grid-cols-12 gap-4">
+    <div v-if="pending && !freelanceProjects.length" class="grid grid-cols-12 gap-4">
       <div
         v-for="i in 3"
         :key="i"
@@ -10,9 +10,9 @@
     </div>
 
     <!-- Projects Grid -->
-    <div v-else class="grid grid-cols-12 gap-4">
+    <div v-else-if="freelanceProjects.length > 0" class="grid grid-cols-12 gap-4">
       <div
-        v-for="(item, i) in personalProjects"
+        v-for="(item, i) in freelanceProjects"
         :key="item._id || item.slug || i"
         :class="
           i < 2 ? 'col-span-12 lg:col-span-6' : 'col-span-12 lg:col-span-4'
@@ -33,5 +33,5 @@
 <script setup lang="ts">
 import WorkCard from '../WorkCard.vue'
 
-const { personalProjects, pending } = useProjects()
+const { freelanceProjects, pending } = useProjects()
 </script>

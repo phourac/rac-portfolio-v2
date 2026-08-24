@@ -1,5 +1,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://rac-portfolio-api.onrender.com/api'
+    }
+  },
   plugins: [{ src: '~/plugins/gsap.client.js', mode: 'client' }],
   app: {
     head: {

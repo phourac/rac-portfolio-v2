@@ -7,12 +7,12 @@
         <h2
           class="md:text-[80px] sm:text-[64px] text-[48px] leading-tight mb-8 bg-[linear-gradient(#fff,_#696969)] bg-clip-text text-transparent font-bold tracking-tight"
         >
-          Company Projects
+          Freelance Projects
         </h2>
         <p
           class="text-[18px] sm:text-[20px] leading-relaxed text-gray-300 mb-10 max-w-4xl"
         >
-          These company projects showcase my expertise in delivering tailored solutions that solve real business challenges. I specialize in designing and developing scalable, innovative, and user-friendly applications that help companies achieve their goals using the latest web technologies.
+          My freelance projects showcase custom web applications, e-commerce portals, and tailored digital products designed to help client businesses grow and succeed online.
         </p>
       </div>
     </div>

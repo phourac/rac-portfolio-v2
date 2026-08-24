@@ -1,59 +1,44 @@
 <template>
   <div
-    class="h-[700px] flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-16 md:pt-16 pt-2 md:container mx-auto px-4 py-8"
+    class="h-auto flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-16 md:container mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-16"
   >
-    <!-- Image Section with Glitch Effect -->
+    <!-- Image Section -->
     <div
-      class="relative overflow-hidden max-w-[800px] lg:max-w-[450px] w-full h-auto rounded-3xl"
+      class="relative overflow-hidden w-full lg:w-1/2 max-w-[500px] rounded-3xl shadow-2xl border border-neutral-800 bg-neutral-950 p-2"
     >
       <NuxtImg
-        src="/images/me.png"
-        class="object-cover w-full h-auto"
-        alt="Banner"
+        src="/images/me.jpg"
+        class="object-cover w-full h-auto rounded-2xl"
+        alt="Than Phourac"
+        loading="lazy"
+        format="webp"
+        quality="80"
       />
     </div>
 
     <!-- Text Section -->
-    <div class="flex flex-col gap-4 text-center lg:text-left">
-      <h1
-        class="text-[32px] md:text-[32px] lg:text-[40px] leading-tight text-primary font-bold"
+    <div class="flex flex-col gap-6 w-full lg:w-1/2 text-left">
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-white tracking-tight"
       >
-        <span class="block">
-          A passionate <span class="text-paper">Web Developer</span>
-        </span>
-        <span class="block">who builds modern websites</span>
-        <span class="block">and dynamic web applications.</span>
-      </h1>
+        A passionate <span class="text-[#c4f000]">Web Developer</span> who builds modern websites and dynamic web applications.
+      </h2>
 
-      <p class="text-secondary text-[16px] w-fit mx-auto lg:mx-0">
-        Hi! I'm Phourac, I’ve always been passionate about technology and
-        dreamed of becoming a developer. While studying, I explored many
-        different technologies and kept building things to learn and grow.
+      <p class="text-gray-300 text-base md:text-lg leading-relaxed font-normal">
+        Hi! I'm Phourac. I've always been passionate about technology and dreamed of becoming a developer. While studying computer science, I explored many different technologies and kept building things to learn and grow.
       </p>
-      <p class="text-secondary text-[16px] w-fit mx-auto lg:mx-0">
-        With over 2 years of experience, I can effectively use modern
-        technologies like React, Next.js, Vue, and Nuxt. I’m confident in
-        building a wide range of projects using these frameworks.
+
+      <p class="text-gray-300 text-base md:text-lg leading-relaxed font-normal">
+        With over {{ yearsOfExperience }} years of experience, I can effectively use modern technologies like React, Next.js, Vue, and Nuxt. I’m confident in building a wide range of projects using these frameworks.
       </p>
     </div>
   </div>
-
-  <!-- <Project /> -->
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useScroll } from '@vueuse/core'
-import ScrollExploreButton from '@/components/Home/ScrollExploreButton.vue'
+import { computed } from 'vue'
 
-const target = ref<HTMLElement>()
-const { y } = useScroll(window)
-
-const { transform } = useElementTransform(target, (initData) => {
-  initData.translateX = '0px' // Initial position
-})
-
-watch(y, (scrollY) => {
-  transform.translateX = `${scrollY * 1.5}px`
-})
+const startYear = 2023
+const currentYear = new Date().getFullYear()
+const yearsOfExperience = computed(() => Math.max(1, currentYear - startYear))
 </script>

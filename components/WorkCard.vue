@@ -1,102 +1,68 @@
 <template>
   <NuxtLink
     :to="`/work-experience/${slug}`"
-    class="block"
-    @onClick="scrollToTop"
+    class="block group"
+    @click="scrollToTop"
   >
     <div
-      class="w-full h-[400px] overflow-hidden rounded-[10px] p-16 relative group"
-      :style="bgGradient"
-      @mouseenter="showOverlay"
-      @mouseleave="hideOverlay"
+      class="w-full h-[380px] md:h-[400px] overflow-hidden rounded-xl relative group transition-all duration-300"
+      style="
+        background-image: linear-gradient(
+          to right top,
+          #000000,
+          #080808,
+          #0e0e0e,
+          #141414,
+          #181818
+        );
+      "
     >
-      <NuxtImg
+      <!-- Image Display -->
+      <img
         :src="img || '/images/default-image.jpg'"
-        alt="Project Image"
-        :class="`work-img w-full h-full object-contain transition duration-300 ${imgClass}`"
+        :alt="title || 'Project Image'"
+        class="w-full h-full p-6 md:p-8 object-contain transition duration-500 group-hover:scale-105 group-hover:blur-xs"
         loading="lazy"
+        @error="onImgError"
       />
 
+      <!-- Clean Minimal Overlay -->
       <div
-        :class="`overlay absolute inset-0 flex items-end justify-start p-4 pointer-events-none opacity-0 ${overlayClass}`"
+        class="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
-        <p class="text-white text-3xl font-semibold">{{ title }}</p>
+        <span
+          v-if="category"
+          class="text-xs uppercase tracking-wider text-neutral-400 font-mono mb-1"
+        >
+          {{ category }}
+        </span>
+        <p class="text-white text-2xl lg:text-3xl font-semibold leading-snug">
+          {{ title }}
+        </p>
       </div>
     </div>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { gsap } from 'gsap'
-
 const props = defineProps<{
   img: string
   title: string
   index: number
   slug: string
+  category?: string
 }>()
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0 })
-}
-
-const overlayClass = `overlay-${props.index}`
-const imgClass = `img-${props.index}`
-const bgGradient =
-  'background-image: linear-gradient(to right top, #000000, #080808, #0e0e0e, #141414, #181818);'
-
-const showOverlay = () => {
-  const overlay = document.querySelector(
-    `.${overlayClass}`
-  ) as HTMLElement | null
-  const img = document.querySelector(`.${imgClass}`) as HTMLElement | null
-
-  if (overlay && img) {
-    gsap.set(img, { filter: 'blur(4px)' })
-    gsap.set(overlay, { opacity: 1, y: 10, pointerEvents: 'auto' })
-
-    gsap.to(overlay, {
-      y: 0,
-      opacity: 1,
-      pointerEvents: 'auto',
-      duration: 0.3,
-      ease: 'circ.in'
-    })
-
-    gsap.to(img, {
-      filter: 'blur(1px)',
-      duration: 0.3,
-      ease: 'circ.in'
-    })
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }
 
-const hideOverlay = () => {
-  const overlay = document.querySelector(
-    `.${overlayClass}`
-  ) as HTMLElement | null
-  const img = document.querySelector(`.${imgClass}`) as HTMLElement | null
-
-  if (overlay && img) {
-    gsap.to(overlay, {
-      y: 0,
-      opacity: 0,
-      ease: 'circ.in',
-      pointerEvents: 'none'
-    })
-
-    gsap.to(img, {
-      filter: 'blur(0px)',
-      ease: 'circ.in'
-    })
+const onImgError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  if (target) {
+    target.src = '/images/default-image.jpg'
   }
 }
-
-onMounted(() => {
-  const overlay = document.querySelector(`.${overlayClass}`)
-  if (overlay) {
-    gsap.set(overlay, { y: 0, opacity: 0 })
-  }
-})
 </script>
