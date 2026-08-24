@@ -1,42 +1,85 @@
 <template>
-  <div v-if="project" class="h-auto md:container mx-auto px-6 md:px-8 py-8 md:py-16">
+  <div
+    v-if="project"
+    class="h-auto md:container mx-auto px-6 md:px-8 py-8 md:py-16"
+  >
     <!-- Top Navigation & Category Badge -->
     <div class="flex items-center justify-between gap-4 mb-6">
       <NuxtLink
         to="/work-experience"
         class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1.5 font-medium"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
         Back to Work & Experience
       </NuxtLink>
-      <span v-if="project.category" class="text-xs uppercase font-semibold px-3.5 py-1 rounded-full bg-[#c4f000] text-black">
+      <span
+        v-if="project.category"
+        class="text-xs uppercase font-semibold px-3.5 py-1 rounded-full bg-[#c4f000] text-black"
+      >
         {{ project.category }}
       </span>
     </div>
 
     <!-- Title -->
-    <h1 class="md:text-[56px] text-[36px] leading-[1.1] mb-8 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent font-bold max-w-4xl">
+    <h1
+      class="md:text-[56px] text-[36px] leading-[1.1] mb-8 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent font-bold max-w-4xl"
+    >
       {{ project.name || project.title }}
     </h1>
 
     <!-- Apple Mac Mockup Window Frame -->
-    <div v-if="allImages && allImages.length > 0" class="w-full max-w-4xl mx-auto mb-12">
-      <div class="w-full rounded-2xl overflow-hidden shadow-2xl bg-[#0f0f11] border border-neutral-800">
+    <div
+      v-if="allImages && allImages.length > 0"
+      class="w-full max-w-4xl mx-auto mb-12"
+    >
+      <div
+        class="w-full rounded-2xl overflow-hidden shadow-2xl bg-[#0f0f11] border border-neutral-800"
+      >
         <!-- Mac Title Bar Header -->
-        <div class="h-10 px-4 bg-[#18181b] border-b border-neutral-800 flex items-center justify-between">
+        <div
+          class="h-10 px-4 bg-[#18181b] border-b border-neutral-800 flex items-center justify-between"
+        >
           <!-- Mac Traffic Light Buttons -->
           <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 inline-block" />
-            <span class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 inline-block" />
-            <span class="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 inline-block" />
+            <span
+              class="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 inline-block"
+            />
+            <span
+              class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 inline-block"
+            />
+            <span
+              class="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 inline-block"
+            />
           </div>
 
           <!-- Mac Safari / Chrome Address Bar Mockup -->
-          <div class="flex items-center gap-1.5 px-4 py-1 rounded-md bg-[#09090b] border border-neutral-800/60 text-[11px] font-mono text-neutral-400 max-w-xs md:max-w-md truncate shadow-inner">
-            <svg class="w-3 h-3 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          <div
+            class="flex items-center gap-1.5 px-4 py-1 rounded-md bg-[#09090b] border border-neutral-800/60 text-[11px] font-mono text-neutral-400 max-w-xs md:max-w-md truncate shadow-inner"
+          >
+            <svg
+              class="w-3 h-3 text-neutral-500 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              />
             </svg>
             <span class="truncate">{{ displayUrl }}</span>
           </div>
@@ -46,7 +89,9 @@
         </div>
 
         <!-- Mac Window Display Screen Viewport -->
-        <div class="p-3 md:p-6 bg-gradient-to-b from-[#09090b] to-[#040405] flex items-center justify-center min-h-[240px] md:min-h-[360px]">
+        <div
+          class="p-3 md:p-6 bg-gradient-to-b from-[#09090b] to-[#040405] flex items-center justify-center min-h-[240px] md:min-h-[360px]"
+        >
           <img
             :src="activeImage"
             :alt="project.name || project.title"
@@ -57,16 +102,27 @@
       </div>
 
       <!-- Thumbnail Selector -->
-      <div v-if="allImages.length > 1" class="flex justify-center gap-3 mt-4 overflow-x-auto pb-2">
+      <div
+        v-if="allImages.length > 1"
+        class="flex justify-center gap-3 mt-4 overflow-x-auto pb-2"
+      >
         <button
           v-for="(imgUrl, idx) in allImages"
           :key="idx"
           type="button"
           class="relative flex-shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 focus:outline-none"
-          :class="activeImage === imgUrl ? 'border-[#c4f000] scale-105 shadow-md' : 'border-gray-800 opacity-50 hover:opacity-100'"
+          :class="
+            activeImage === imgUrl
+              ? 'border-[#c4f000] scale-105 shadow-md'
+              : 'border-gray-800 opacity-50 hover:opacity-100'
+          "
           @click="activeImage = imgUrl"
         >
-          <img :src="imgUrl" :alt="`Screenshot ${idx + 1}`" class="w-full h-full object-cover" />
+          <img
+            :src="imgUrl"
+            :alt="`Screenshot ${idx + 1}`"
+            class="w-full h-full object-cover"
+          />
         </button>
       </div>
     </div>
@@ -75,13 +131,17 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-4">
       <!-- Main Content Area -->
       <div class="lg:col-span-7 flex flex-col">
-        <h2 class="text-xl font-semibold text-white mb-4">
-          Project Overview
-        </h2>
+        <h2 class="text-xl font-semibold text-white mb-4">Project Overview</h2>
 
         <!-- Description -->
-        <div class="text-[18px] leading-[28px] text-gray-300 mb-8 project-description">
-          <div v-if="isHtmlString(formattedDescription)" v-html="formattedDescription" class="prose prose-invert max-w-none prose-p:mb-4 prose-p:leading-relaxed prose-strong:text-white" />
+        <div
+          class="text-[18px] leading-[28px] text-gray-300 mb-8 project-description"
+        >
+          <div
+            v-if="isHtmlString(formattedDescription)"
+            v-html="formattedDescription"
+            class="prose prose-invert max-w-none prose-p:mb-4 prose-p:leading-relaxed prose-strong:text-white"
+          />
           <p v-else class="whitespace-pre-line">{{ formattedDescription }}</p>
         </div>
 
@@ -90,7 +150,7 @@
           <AnimatedButton
             v-if="project.demo || project.demoUrl"
             :href="project.demo || project.demoUrl"
-            label="Live Demo"
+            label="Website Url"
             bgColor="bg-white"
             textColor="text-black"
             hoverTextColor="text-black"
@@ -125,7 +185,9 @@
         </div>
 
         <!-- Key Responsibilities -->
-        <div v-if="project.responsibilities && project.responsibilities.length > 0">
+        <div
+          v-if="project.responsibilities && project.responsibilities.length > 0"
+        >
           <h3 class="text-lg font-semibold text-white mb-3">
             Key Responsibilities:
           </h3>
@@ -135,7 +197,9 @@
               :key="idx"
               class="flex items-start gap-3 text-gray-300 text-base leading-relaxed bg-gray-900/50 p-4 rounded-2xl border border-gray-800/80"
             >
-              <span class="mt-2 w-2 h-2 rounded-full bg-[#c4f000] flex-shrink-0" />
+              <span
+                class="mt-2 w-2 h-2 rounded-full bg-[#c4f000] flex-shrink-0"
+              />
               <span>{{ resp }}</span>
             </li>
           </ul>
@@ -162,15 +226,25 @@
   </div>
 
   <!-- Loading / Not Found State -->
-  <div v-else class="min-h-[50vh] flex flex-col items-center justify-center text-center px-4 py-20">
+  <div
+    v-else
+    class="min-h-[50vh] flex flex-col items-center justify-center text-center px-4 py-20"
+  >
     <div v-if="pending" class="flex flex-col items-center gap-4">
-      <div class="w-10 h-10 rounded-full border-2 border-gray-700 border-t-white animate-spin" />
+      <div
+        class="w-10 h-10 rounded-full border-2 border-gray-700 border-t-white animate-spin"
+      />
       <p class="text-gray-400">Loading project details...</p>
     </div>
     <div v-else class="flex flex-col items-center gap-4">
       <h2 class="text-3xl font-bold text-white">Project Not Found</h2>
-      <p class="text-gray-400 max-w-md">The project you are looking for might have been moved or doesn't exist.</p>
-      <NuxtLink to="/work-experience" class="mt-4 px-6 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-gray-200 transition">
+      <p class="text-gray-400 max-w-md">
+        The project you are looking for might have been moved or doesn't exist.
+      </p>
+      <NuxtLink
+        to="/work-experience"
+        class="mt-4 px-6 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-gray-200 transition"
+      >
         Browse All Projects
       </NuxtLink>
     </div>
