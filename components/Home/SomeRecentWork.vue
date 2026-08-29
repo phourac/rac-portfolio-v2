@@ -10,7 +10,17 @@
       loading="lazy"
     />
 
-    <div class="grid grid-cols-12 gap-4">
+    <!-- Loading Skeleton -->
+    <div v-if="pending" class="grid grid-cols-12 gap-4">
+      <div
+        v-for="i in 3"
+        :key="i"
+        class="col-span-12 lg:col-span-4 h-[400px] bg-neutral-900 animate-pulse rounded-[10px]"
+      />
+    </div>
+
+    <!-- Projects Grid -->
+    <div v-else class="grid grid-cols-12 gap-4">
       <div
         v-for="(item, i) in displayProjects"
         :key="item._id || item.slug || i"
@@ -33,19 +43,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import WorkCard from '../WorkCard.vue'
-import { recentWorks as staticRecentWorks } from '~/utils/data-utils'
 
-const { projects } = useProjects()
+const { projects, pending } = useProjects()
 
 const displayProjects = computed(() => {
   if (projects.value && projects.value.length > 0) {
     return projects.value.slice(0, 5)
   }
-  return staticRecentWorks.map((w) => ({
-    ...w,
-    name: w.title,
-    slug: w.title.toLowerCase().replace(/\s+/g, '-'),
-    category: 'FEATURED'
-  }))
+  return []
 })
 </script>

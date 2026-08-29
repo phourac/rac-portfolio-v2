@@ -1,4 +1,3 @@
-import { personal_project, company_project } from '~/utils/data-utils'
 
 export interface ApiProject {
   _id?: string
@@ -135,29 +134,7 @@ export function useProjects() {
       const normalized = rawProjectsResponse.value.map(normalizeProject)
       return sortProjectsByCategory(normalized)
     }
-
-    // Static fallback
-    const fallbackPersonal = personal_project.map(p => normalizeProject({
-      ...p,
-      name: p.title,
-      category: 'PERSONAL',
-      images: [p.img],
-      demoUrl: p.demo,
-      repositoryUrl: p.github,
-      description: p.desc
-    }))
-
-    const fallbackCompany = company_project.map(p => normalizeProject({
-      ...p,
-      name: p.title,
-      category: 'COMPANY',
-      images: [p.img],
-      demoUrl: p.demo,
-      repositoryUrl: p.github,
-      description: p.desc
-    }))
-
-    return sortProjectsByCategory([...fallbackCompany, ...fallbackPersonal])
+    return []
   })
 
   const companyProjects = computed(() => {

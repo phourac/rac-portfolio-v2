@@ -1,7 +1,7 @@
 <template>
   <div class="h-auto cursor-pointer w-full px-4">
     <!-- Loading Skeleton -->
-    <div v-if="pending && !companyProjects.length" class="grid grid-cols-12 gap-4">
+    <div v-if="pending" class="grid grid-cols-12 gap-4">
       <div
         v-for="i in 3"
         :key="i"
@@ -10,7 +10,7 @@
     </div>
 
     <!-- Projects Grid -->
-    <div v-else class="grid grid-cols-12 gap-4">
+    <div v-else-if="companyProjects.length > 0" class="grid grid-cols-12 gap-4">
       <div
         v-for="(item, i) in companyProjects"
         :key="item._id || item.slug || i"
