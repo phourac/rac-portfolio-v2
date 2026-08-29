@@ -32,12 +32,12 @@
         </h1>
 
         <p class="text-secondary text-lg w-fit">
-          With over {{ yearsOfExperience }} years of experience, I'm passionate about creating efficient,
-          responsive, and user-friendly interfaces.
+          With over {{ yearsOfExperience }} years of experience, I'm passionate
+          about creating efficient, responsive, and user-friendly interfaces.
         </p>
 
         <div>
-          <a href="/Than Phourac.pdf" download>
+          <a href="/Than_Phourac_CV.pdf" download>
             <button class="cv-button">
               Download CV
               <Icon
